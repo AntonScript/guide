@@ -12,7 +12,7 @@ public class User {
     private Long id;
     @Column(unique = true,nullable = false)
     private String login;
-    @Column(unique = true,nullable = false)
+    @Column(nullable = false)
     @Size(min = 10)
     private String password;
     @ManyToMany
