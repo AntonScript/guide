@@ -1,24 +1,18 @@
 package team.mediasoft.guide.controller.dto;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 public class CreateCommentRequestDto {
-    @Positive
-    private Long placeId;
-    @NotNull
-    @NotEmpty
+    @Positive(message = "id сущности не может быть отрицательным числом")
+    private final Long placeId;
+    @NotBlank
     @Size(min = 1, max = 256)
-    private String message;
-    @Positive
+    private final String message;
+    @Positive(message = "id сущности не может быть отрицательным числом")
     private Long userId;
     @Size(min = 1, max = 5)
-    private Integer rating;
+    private final Integer rating;
 
-    public CreateCommentRequestDto() {
-    }
 
     public CreateCommentRequestDto(Long placeId, String message, Long userId, Integer rating) {
         this.placeId = placeId;

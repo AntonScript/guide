@@ -1,32 +1,29 @@
 package team.mediasoft.guide.controller.dto;
 
 import javax.validation.constraints.*;
+import java.util.Collections;
 import java.util.List;
 
 public class PlaceResponseDto {
-    @Positive
-    private Long id;
-    @NotNull
-    @NotEmpty
+    @Positive(message = "id сущности не может быть отрицательным числом")
+    private final Long id;
+    @NotBlank
     @Size(min = 1,max = 128)
-    private String shortName;
-    @NotNull
-    @NotEmpty
+    private final String shortName;
+    @NotBlank
     @Size(min = 1,max = 256)
-    private String fullName;
-    @NotNull
-    @NotEmpty
+    private final String fullName;
+    @NotBlank
     @Size(min = 1,max = 1024)
-    private String description;
-    @NotNull
-    @NotEmpty
+    private final String description;
+    @NotBlank
     @Size(min = 1,max = 128)
-    private String typePlace;
+    private final String typePlace;
     private final List<CommentResponseDto> comments;
     @Min(0L)
-    private Long count;
+    private final Long count;
     @Min(0)
-    private Double rating;
+    private final Double rating;
 
 
     public PlaceResponseDto(Long id,
@@ -43,7 +40,7 @@ public class PlaceResponseDto {
         this.fullName = fullName;
         this.description = description;
         this.typePlace = typePlace;
-        this.comments = comments;
+        this.comments = Collections.unmodifiableList(comments);
         this.count = count;
         this.rating = rating;
     }

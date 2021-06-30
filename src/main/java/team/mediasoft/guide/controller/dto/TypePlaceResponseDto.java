@@ -1,18 +1,17 @@
 package team.mediasoft.guide.controller.dto;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 public class TypePlaceResponseDto {
-    @Positive
-    private Long id;
-    @NotEmpty
+    @Positive(message = "id сущности не может быть отрицательным числом")
+    private final Long id;
+    @NotBlank
     @Size(min = 1,max = 128)
-    private String type;
+    private final String type;
 
-    public TypePlaceResponseDto() {
-    }
 
     public TypePlaceResponseDto(Long id, String type) {
         this.id = id;
