@@ -1,6 +1,10 @@
 package team.mediasoft.guide.model;
 
+import org.hibernate.annotations.Check;
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
@@ -10,10 +14,15 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotBlank
+    @Length(max = 128)
     @Column(unique = true,nullable = false)
     private String login;
+
+    @NotBlank
     @Column(nullable = false)
-    @Size(min = 10)
+    @Length(min = 10, max = 128)
     private String password;
     @ManyToMany
     @JoinTable(

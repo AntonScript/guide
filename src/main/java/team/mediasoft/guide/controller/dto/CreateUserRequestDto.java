@@ -12,7 +12,7 @@ public class CreateUserRequestDto {
     private String login;
     @NotNull
     @NotEmpty
-    @Size(min = 1,max = 128)
+    @Size(min = 10,max = 128)
     private String password;
     @Positive
     private Long idRole;

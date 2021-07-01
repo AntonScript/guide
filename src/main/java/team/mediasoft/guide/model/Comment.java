@@ -1,9 +1,13 @@
 package team.mediasoft.guide.model;
 
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 
 @Entity
 public class Comment {
@@ -14,16 +18,17 @@ public class Comment {
     @ManyToOne
     private Place place;
 
+    @NotBlank
     @Column(nullable = false)
-    @Size(min = 1, max = 256)
+    @Length(min = 1, max = 256)
     private String message;
 
     @ManyToOne
     private User user;
 
+    @NotNull
     @Column(nullable = false)
-    @Max(10)
-    @Min(0)
+    @Size(min = 1, max = 10)
     private Integer rating;
 
     public Comment() {
