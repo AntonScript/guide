@@ -14,7 +14,7 @@ import java.util.List;
 public class CommentController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<CommentResponseDto> getAllComment(@RequestParam Long idPlace){
+    public List<CommentResponseDto> getCommentsByPlace(@RequestParam Long idPlace){
         return new ArrayList<CommentResponseDto>();
     }
 
@@ -26,7 +26,7 @@ public class CommentController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public MessageDto updateComment(@PathVariable Long id, @RequestBody CommentResponseDto comment){
+    public MessageDto updateComment(@PathVariable Long id, @RequestBody CreateCommentRequestDto comment){
         return new MessageDto("k");
     }
 

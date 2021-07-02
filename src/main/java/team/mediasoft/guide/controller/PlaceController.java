@@ -15,7 +15,7 @@ public class PlaceController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public PlaceResponseDto getById(@RequestParam Long idPlace){
+    public PlaceResponseDto getPlaceById(@RequestParam Long idPlace){
         return null;
     }
 

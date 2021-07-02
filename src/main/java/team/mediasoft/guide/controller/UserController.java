@@ -15,7 +15,7 @@ public class UserController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public UserResponseDto getById(@RequestParam Long idUser){
-        return new UserResponseDto();
+        return null;
     }
 
     @GetMapping("/all")

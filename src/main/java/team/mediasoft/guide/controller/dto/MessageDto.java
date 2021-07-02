@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class MessageDto {
-    private String message;
+    private final String message;
 
     public MessageDto(String message) {
         this.message = message;
@@ -15,7 +15,4 @@ public class MessageDto {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
 }

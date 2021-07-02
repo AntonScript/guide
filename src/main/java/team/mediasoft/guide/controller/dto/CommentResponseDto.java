@@ -3,18 +3,17 @@ package team.mediasoft.guide.controller.dto;
 import javax.validation.constraints.*;
 
 public class CommentResponseDto {
-    @Positive
-    private Long id;
-    @Positive
-    private Long placeId;
-    @NotNull
-    @NotEmpty
+    @Positive(message = "id сущности не может быть отрицательным числом")
+    private final Long id;
+    @Positive(message = "id сущности не может быть отрицательным числом")
+    private final Long placeId;
+    @NotBlank
     @Size(min = 1, max = 256)
-    private String message;
-    @Positive
-    private Long userId;
+    private final String message;
+    @Positive(message = "id сущности не может быть отрицательным числом")
+    private final Long userId;
     @Size(min = 1, max = 5)
-    private Integer rating;
+    private final Integer rating;
 
 
 

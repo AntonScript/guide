@@ -1,28 +1,25 @@
 package team.mediasoft.guide.controller.dto;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class CreatePlaceRequestDto {
-    @NotNull
-    @NotEmpty
+    @NotBlank
     @Size(min = 1, max = 128)
-    private String shortName;
-    @NotNull
-    @NotEmpty
+    private final String shortName;
+    @NotBlank
     @Size(min = 1, max = 256)
-    private String fullName;
-    @NotNull
-    @NotEmpty
+    private final String fullName;
+    @NotBlank
     @Size(min = 1, max = 1024)
-    private String description;
+    private final String description;
     @NotNull
     @Size(min = 1, max = 256)
-    private Long typePlace;
+    private final Long typePlace;
 
-    public CreatePlaceRequestDto() {
-    }
+
 
     public CreatePlaceRequestDto(String shortName, String fullName, String description, Long typePlace) {
         this.shortName = shortName;

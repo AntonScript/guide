@@ -1,24 +1,20 @@
 package team.mediasoft.guide.controller.dto;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 public class CreateUserRequestDto {
-    @NotNull
-    @NotEmpty
+    @NotBlank
     @Size(min = 1,max = 128)
     private String login;
+
     @NotNull
     @NotEmpty
     @Size(min = 10,max = 128)
     private String password;
-    @Positive
-    private Long idRole;
 
-    public CreateUserRequestDto() {
-    }
+    @Positive
+    private final Long idRole;
+
 
     public CreateUserRequestDto(String login, String password, Long idRole) {
         this.login = login;
