@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <!--  Sequences for tables  -->
+
+    <changeSet id="20213006-1" author="anton">
+        <preConditions onFail = "MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="comment_seq" />
+            </not>
+        </preConditions>
+        <createSequence sequenceName="comment_seq" incrementBy="1" minValue="1" startValue="1" />
+    </changeSet>
+
+    <changeSet id="20213006-2" author="anton">
+        <preConditions onFail = "MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="users_seq" />
+            </not>
+        </preConditions>
+        <createSequence sequenceName="users_seq" incrementBy="1" minValue="1" startValue="1" />
+    </changeSet>
+
+    <changeSet id="20213006-3" author="anton">
+        <preConditions onFail = "MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="role_seq" />
+            </not>
+        </preConditions>
+        <createSequence sequenceName="role_seq" incrementBy="1" minValue="1" startValue="1" />
+    </changeSet>
+
+    <changeSet id="20213006-4" author="anton">
+        <preConditions onFail = "MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="place_seq" />
+            </not>
+        </preConditions>
+        <createSequence sequenceName="place_seq" incrementBy="1" minValue="1" startValue="1" />
+    </changeSet>
+
+    <changeSet id="20213006-5" author="anton">
+        <preConditions onFail = "MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="type_place_seq" />
+            </not>
+        </preConditions>
+        <createSequence sequenceName="type_place_seq" incrementBy="1" minValue="1" startValue="1" />
+    </changeSet>
+
+    <!--  End  -->
+
+    <!--  Create tables  -->
+
+    <changeSet  id="20213006-6"  author="anton">
+        <createTable tableName="users">
+            <column  name="id"  type="bigint" remarks="Идентификатор пользователя">
+                <constraints  primaryKey="true"  nullable="false" primaryKeyName="PK_USERS"/>
+            </column>
+            <column name="login" type="varchar(255)" remarks="логин пользователя">
+                <constraints nullable="false" unique="true" uniqueConstraintName="unique_login_user"/>
+            </column>
+            <column name="password" type="varchar" remarks="пароль пользователя">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet  id="20213006-7"  author="anton">
+        <createTable tableName="role">
+            <column  name="id"  type="bigint" remarks="Идентификатор роли пользователя">
+                <constraints  primaryKey="true"  nullable="false" primaryKeyName="PK_ROLE"/>
+            </column>
+            <column name="role" type="varchar(255)" remarks="роль пользователя, их может быть несколько у одного пользователя">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet  id="20213006-8"  author="anton">
+        <createTable tableName="user_role">
+            <column name="role_id" type="bigint" remarks="Идентификатор пользователя">
+                <constraints nullable="false" primaryKeyName="true" foreignKeyName="role_id_key" references="role"/>
+            </column>
+            <column name="user_id" type="bigint" remarks="Идентификатор роли пользователя">
+                <constraints nullable="false" primaryKeyName="true" foreignKeyName="user_id_key" references="users"/>
+            </column>
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="20213006-9" author="anton">
+        <createTable tableName="type_place">
+            <column  name="id"  type="bigint" remarks="Идентификатор типа заведения">
+                <constraints  primaryKey="true"  nullable="false" primaryKeyName="PK_TYPE_PLACE"/>
+            </column>
+            <column name="type" type="varchar(128)" remarks="тии заведения">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet  id="20213006-10"  author="anton">
+        <createTable tableName="place">
+            <column  name="id"  type="bigint" remarks="Идентификатор заведения">
+                <constraints  primaryKey="true"  nullable="false" primaryKeyName="PK_PLACE"/>
+            </column>
+            <column name="count" type="bigint" defaultValue="0" remarks="кол-во оценок у заведения, по умолчанию задается числом 0">
+                <constraints nullable="false" />
+            </column>
+            <column name="description" type="varchar(1024)" remarks="описание заведения">
+                <constraints nullable="false"/>
+            </column>
+            <column name="full_name" type="varchar(256)" remarks="полное название заведения">
+            </column>
+            <column name="short_name" type="varchar(128)" remarks="короткое название заведения">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="rating" type="double" remarks="рейтинг заведения">
+                <constraints/>
+            </column>
+            <column name="type_place_id" type="bigint" remarks="Идентификатор типа заведения">
+                <constraints nullable="false"  foreignKeyName="type_place_id_key" references="type_place"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet  id="20213006-11"  author="anton">
+        <createTable  tableName="comment">
+            <column  name="id"  type="bigint" remarks="Идентификатор комментария пользователя">
+                <constraints  primaryKey="true"  nullable="false" primaryKeyName="PK_COMMENT"/>
+            </column>
+            <column  name="message"  type="varchar(255)" remarks="Текст комментария пользователя">
+                <constraints  nullable="false" />
+            </column>
+            <column name="rating" type="int" remarks="оценка пользователя заведению">
+                <constraints nullable="false"/>
+            </column>
+            <column name="place_id" type="bigint" remarks="Идентификатор заведения к которому относиться комментарий">
+                <constraints nullable="false" foreignKeyName="place_id_key" references="place"/>
+            </column>
+            <column name="user_id" type="bigint" remarks="Идентификатор пользователя">
+                <constraints nullable="false" foreignKeyName="user_id_key" references="users"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <!--  End  -->
+
+    <!--  Constraints  -->
+    <changeSet id="20210107-12" author="anton">
+        <preConditions onFail = "MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from information_schema.TABLE_CONSTRAINTS where CONSTRAINT_NAME = 'user_password_check';</sqlCheck>
+        </preConditions>
+        <sql> ALTER TABLE users ADD CONSTRAINT user_password_check CHECK(LENGTH(password) > 10); </sql>
+    </changeSet>
+
+    <changeSet id="20210107-13" author="anton">
+        <preConditions onFail = "MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from information_schema.TABLE_CONSTRAINTS where CONSTRAINT_NAME = 'place_rating_check';</sqlCheck>
+        </preConditions>
+        <sql>ALTER TABLE place ADD CONSTRAINT place_rating_check CHECK(rating &gt; 0 AND rating &lt;= 10);</sql>
+    </changeSet>
+
+    <changeSet id="20210107-14" author="anton">
+        <preConditions onFail = "MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from information_schema.TABLE_CONSTRAINTS where CONSTRAINT_NAME = 'comment_rating_check';</sqlCheck>
+        </preConditions>
+        <sql>ALTER TABLE place ADD CONSTRAINT comment_rating_check CHECK(rating &gt; 0 AND rating &lt;= 10);</sql>
+    </changeSet>
+    <!--  End  -->
+
+</databaseChangeLog>
