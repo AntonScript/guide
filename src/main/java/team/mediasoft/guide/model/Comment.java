@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Objects;
 
 
 @Entity
@@ -72,5 +73,18 @@ public class Comment {
 
     public void setRating(Integer rating) {
         this.rating = rating;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Comment comment = (Comment) o;
+        return Objects.equals(place, comment.place) && Objects.equals(message, comment.message) && Objects.equals(user, comment.user) && Objects.equals(rating, comment.rating);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(place, message, user, rating);
     }
 }
