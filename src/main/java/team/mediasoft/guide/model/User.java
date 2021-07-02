@@ -35,12 +35,6 @@ public class User {
     public User() {
     }
 
-    @PreRemove
-    private void removeHandler() {
-        role.forEach(u -> u.getUsers().remove(this));
-    }
-
-
     public Long getId() {
         return id;
     }

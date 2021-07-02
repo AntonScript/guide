@@ -22,13 +22,7 @@ public class Role {
     )
     private Set<User> users;
 
-
     public Role() {
-    }
-
-    @PreRemove
-    private void removeHandler() {
-        users.forEach(u -> u.getRole().remove(this));
     }
 
     public Long getId() {
